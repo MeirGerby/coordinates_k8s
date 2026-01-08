@@ -4,6 +4,7 @@ from typing import List, Optional, Any
 import psycopg2
 from psycopg2.extras import RealDictCursor
 import os
+from dotenv import load_dotenv
 from contextlib import contextmanager, asynccontextmanager
 
 @asynccontextmanager
@@ -15,6 +16,7 @@ async def lifespan(app: FastAPI):
     # Shutdown (if needed in the future)
 
 app = FastAPI(lifespan=lifespan)
+load_dotenv()
 
 # Database configuration
 DB_CONFIG = {
@@ -22,7 +24,7 @@ DB_CONFIG = {
     "port": os.getenv("POSTGRES_PORT", "5432"),
     "database": os.getenv("POSTGRES_DB", "coordinates_db"),
     "user": os.getenv("POSTGRES_USER", "postgres"),
-    "password": os.getenv("POSTGRES_PASSWORD", "postgres")
+    "password": os.getenv("POSTGRES_PASSWORD")
 }
 
 
@@ -162,4 +164,4 @@ async def root():
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    uvicorn.run(app, host="127.0.0.1", port=8000)
