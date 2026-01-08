@@ -29,8 +29,8 @@ spec:
         - name:  POSTGRES_PASSWORD
           value: "Meirgerby2001#"
         volumeMounts:
-        - name: www
-          mountPath: /var/lib/postgresql/data
+        - name: postgres-storage
+          mountPath: /var/lib/postgresql/data 
   volumeClaimTemplates:
   - metadata:
       name: postgres-storage
